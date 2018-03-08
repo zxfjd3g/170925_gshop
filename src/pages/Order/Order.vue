@@ -1,10 +1,7 @@
 <template>
   <div class="order">
-    <header class="shop_head">
-      <span class="header_title">
-        <span class="header_title_text ellipsis">订单列表</span>
-      </span>
-    </header>
+    <HeaderTop title="订单列表"/>
+
     <section class="order_no_login">
       <img src="./images/person.png">
       <h3>登录后查看外卖订单</h3>
@@ -14,53 +11,18 @@
 </template>
 
 <script>
-  export default {}
+  import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
+  export default {
+    components: {
+      HeaderTop
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../common/stylus/mixins.styl"
   .order  //订单
     width 100%
-    .shop_head
-      background-color #02a774
-      position fixed
-      z-index 100
-      left 0
-      top 0
-      width 100%
-      height 45px
-      .header_search
-        position absolute
-        left 15px
-        top 50%
-        transform translateY(-50%)
-        width 10%
-        height 50%
-        .icon-sousuo
-          font-size 25px
-          color #fff
-      .header_title
-        position absolute
-        top 50%
-        left 50%
-        transform translate(-50%, -50%)
-        width 50%
-        color #fff
-        text-align center
-        margin-left -5%
-        .header_title_text
-          font-size 20px
-          color #fff
-          display block
-      .header_login
-        font-size 14px
-        color #fff
-        position absolute
-        right 15px
-        top 50%
-        transform translateY(-50%)
-        .header_login_text
-          color #fff
     .order_no_login
       padding-top 140px
       width 60%

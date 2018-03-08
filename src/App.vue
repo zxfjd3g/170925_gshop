@@ -3,7 +3,6 @@
     <!--显示当前路由组件-->
     <router-view></router-view>
     <FooterGuide v-show="$route.meta.showFooter"/>
-
   </div>
 </template>
 
@@ -13,6 +12,12 @@
   export default {
     components: {
       FooterGuide
+    },
+
+    mounted () {
+      console.log(this) // 组件对象
+      console.log(this.$router)  // 路由器对象
+      console.log(this.$route)  // 当前路由对象
     }
   }
 </script>

@@ -13,7 +13,7 @@
     <nav class="msite_nav border-1px">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(types, index) in foodTypesArr" :key="index">
+          <div class="swiper-slide" v-for="(types, index) in foodTypesArr2" :key="index">
             <a href="javascript:" class="link_to_food" v-for="(type, index2) in types" :key="index2">
               <div class="food_container">
                 <img :src="imgBaseUrl+type.image_url">
@@ -55,6 +55,8 @@
 
     mounted () {
       this.$store.dispatch('getFoodTypes')
+      this.$store.dispatch('getShops')
+
       /*this.$store.dispatch('getFoodTypes', () => { // 状态变化了, 但界面还没有更新
         this.$nextTick(() => { // 当前这次状态改变的界面更新一完成就调用
           var swiper = new Swiper('.swiper-container', {
@@ -117,6 +119,29 @@
           }
         })
 //        console.log(arr)
+        return arr
+      },
+
+      foodTypesArr2 () {
+        const {foodTypes} = this
+        const arr = []  // 大数组
+        let tempArr = [] // 小数组
+
+        foodTypes.forEach(type => {
+          // 如果小数组还是空的
+          if(tempArr.length===0) {
+            // 将小数组保存到大数组
+            arr.push(tempArr)
+          }
+          // 将type保存到小数组
+          tempArr.push(type)
+          // 如果满了
+          if(tempArr.length===8) {
+            // 创建一个新的小数组
+            tempArr = []
+          }
+        })
+
         return arr
       }
     },

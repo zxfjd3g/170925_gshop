@@ -31,11 +31,12 @@ export default {
   },
 
   // 异步获取食物分类列表
-  async getFoodTypes ({commit}) {
+  async getFoodTypes ({commit}, callback) {
     // 发ajax请求获取数据
     const result = await reqFoodTypes()
     // commit mutation接收数据
     commit(RECEIVE_TYPES, {foodTypes: result.data})
+    callback && callback()
   },
 
   // 异步获取商家列表

@@ -13,106 +13,15 @@
     <nav class="msite_nav border-1px">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <a href="javascript:" class="link_to_food">
+          <div class="swiper-slide" v-for="(types, index) in foodTypesArr" :key="index">
+            <a href="javascript:" class="link_to_food" v-for="(type, index2) in types" :key="index2">
               <div class="food_container">
-                <img src="./images/nav/1.jpg">
+                <img :src="imgBaseUrl+type.image_url">
               </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/2.jpg">
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/3.jpg">
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/4.jpg">
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/5.jpg">
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/6.jpg">
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/7.jpg">
-              </div>
-              <span>预订早餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/8.jpg">
-              </div>
-              <span>土豪推荐</span>
+              <span>{{type.title}}</span>
             </a>
           </div>
-          <div class="swiper-slide">
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/9.jpg">
-              </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/10.jpg">
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/11.jpg">
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/12.jpg">
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/13.jpg">
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/14.jpg">
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/1.jpg">
-              </div>
-              <span>预订早餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/2.jpg">
-              </div>
-              <span>土豪推荐</span>
-            </a>
-          </div>
+
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
@@ -137,17 +46,74 @@
   import ShopList from '../../components/ShopList/ShopList.vue'
 
   export default {
+
+    data () {
+      return {
+        imgBaseUrl: 'https://fuss10.elemecdn.com'
+      }
+    },
+
     mounted () {
-      var swiper = new Swiper('.swiper-container', {
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination'
-        }
-      })
+      this.$store.dispatch('getFoodTypes')
+      /*this.$store.dispatch('getFoodTypes', () => { // 状态变化了, 但界面还没有更新
+        this.$nextTick(() => { // 当前这次状态改变的界面更新一完成就调用
+          var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+              el: '.swiper-pagination'
+            }
+          })
+        })
+      })*/
+
+     /* setTimeout(() => {
+        var swiper = new Swiper('.swiper-container', {
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination'
+          }
+        })
+      }, 1000)*/
+    },
+
+    watch: {
+      foodTypes () {
+        this.$nextTick(() => { // 当前这次状态改变的界面更新一完成就调用
+          var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+              el: '.swiper-pagination'
+            }
+          })
+        })
+      }
     },
 
     computed: {
-      ...mapState(['address'])
+      ...mapState(['address', 'foodTypes']),
+
+      foodTypesArr () {
+        const arr = []  // 大数组
+        const {foodTypes} = this
+        let tempArr = [] // 小数组
+        // 遍历foodTypes并生成n个小数组(max为8), 并添加到arr
+        foodTypes.forEach(type => {
+          // 还没有一个数据前, 先将小数组保存到大数组中
+          if(tempArr.length===0) {
+            arr.push(tempArr)
+          }
+          // type是否需要添加到当前的小数组
+          if(tempArr.length<8) {
+            tempArr.push(type)
+          } else {
+            tempArr = []
+            tempArr.push(type)
+            arr.push(tempArr)
+          }
+        })
+        console.log(arr)
+        return arr
+      }
     },
 
     components: {

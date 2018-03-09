@@ -77,7 +77,7 @@
     },
 
     watch: {
-      foodTypes () {
+      foodTypes () {// 状态发生了改变, 界面还没有变化
         this.$nextTick(() => { // 当前这次状态改变的界面更新一完成就调用
           var swiper = new Swiper('.swiper-container', {
             loop: true,
@@ -106,16 +106,17 @@
           if(tempArr.length<8) {
             // 保存type到小数组
             tempArr.push(type)
-          } else {
+          } else {// 满了
             // 创建一个新的小数组
             tempArr = []
-            // 保存type到小数组
-            tempArr.push(type)
             // 将小数组保存到大数组中
             arr.push(tempArr)
+            // 保存type到小数组
+            tempArr.push(type)
+
           }
         })
-        console.log(arr)
+//        console.log(arr)
         return arr
       }
     },

@@ -104,10 +104,14 @@
           }
           // type是否需要添加到当前的小数组
           if(tempArr.length<8) {
+            // 保存type到小数组
             tempArr.push(type)
           } else {
+            // 创建一个新的小数组
             tempArr = []
+            // 保存type到小数组
             tempArr.push(type)
+            // 将小数组保存到大数组中
             arr.push(tempArr)
           }
         })

@@ -29,7 +29,8 @@
      静态组件
      FooterGuide的显示/隐藏: 通过路由的meta
      
-     
+# day02
+## 1. 重要问题
     * 如何查看你的应用是否发送某个ajax请求?  
         浏览器的network
     * 发ajax请求404
@@ -40,11 +41,11 @@
         vuex中是否有
         组件中是否读取
         
-    异步显示轮播图:
-      1. 通过vuex获取foodTypes数组(发请求, 读取)
-      2. 对数据进行整合计算(一维变为特定的二维数组)
-      3. 使用Swiper显示轮播, 如何在界面更新之后创建Swiper对象?
-          1). 使用回调+$nextTick()
-          2). 使用watch+$nextTick()
+## 2. 异步显示轮播图:
+    1. 通过vuex获取foodTypes数组(发请求, 读取)
+    2. 对数据进行整合计算(一维变为特定的二维数组)
+    3. 使用Swiper显示轮播, 如何在界面更新之后创建Swiper对象?
+        1). 使用回调+$nextTick()
+        2). 使用watch+$nextTick()
           
       

@@ -1,21 +1,27 @@
-# gshop
+# day01
+## 1. 项目开发准备
+    项目描述
+    技术选型
+    API接口
+    你能从此项目中学到什么?
 
-> A Vue.js project
+## 2. 开启项目开发
+    使用脚手架创建项目
+    安装所有依赖
+    开发环境运行
+    生产环境打包与发布
 
-## Build Setup
+## 3. 搭建项目整体界面结构
+    stylus的理解和使用
+    vue-router的理解和使用
+    项目路由拆分
+    底部导航组件
+    导航路由组件
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 4. 抽取组件
+    头部组件
+    商家列表组件
+    
+## 5. 登陆路由组件
+     静态组件
+     FooterGuide的显示/隐藏

@@ -15,9 +15,11 @@
     },
 
     mounted () {
-      console.log(this) // 组件对象
+      /*console.log(this) // 组件对象
       console.log(this.$router)  // 路由器对象
-      console.log(this.$route)  // 当前路由对象
+      console.log(this.$route)  // 当前路由对象*/
+      // 通知action获取地址信息
+      this.$store.dispatch('getAddress')
     }
   }
 </script>

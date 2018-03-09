@@ -1,48 +1,46 @@
 /*
-与后台交互模块
+当前项目接口ajax请求模块
  */
 import ajax from './ajax'
 
-/**
- * 获取地址信息(根据经纬度串)
+/*
+根据经纬度获取位置详情
  */
-export const reqAddress = geohash => ajax('/api/position/' + geohash)
+export const reqAddress = (geohash) => ajax('/position/'+geohash)
 
-/**
- * 获取msite页面食品分类列表
+/*
+获取食品分类列表
  */
-export const reqCategorys = () => ajax('/api/index_category')
+export const reqFoodTypes = () => ajax('/index_category')
 
-/**
- * 获取msite商铺列表(根据经纬度)
+/*
+根据经纬度获取商铺列表
  */
-export const reqShops = ({latitude, longitude}) => ajax('/api/shops', {latitude, longitude})
+export const reqShops = ({latitude, longitude}) => ajax('/shops', {latitude, longitude})
 
-/**
- * 获取图片验证码
+/*
+获取一次性验证码
  */
-export const reqCaptchas = () => ajax('/api/captchas')
+export const reqCaptcha = () => ajax('/captcha')
 
-/**
- * 账号密码登录
+/*
+用户名密码登陆
  */
-export const accountLogin = (name, pwd, captcha) => ajax('/api/login_pwd', {
-  name,
-  pwd,
-  captcha
-}, 'POST')
+export const pwdLogin = ({name, pwd, captcha}) => ajax('/login_pwd', {name, pwd, captcha}, 'POST')
 
-/**
- * 获取短信验证码
+/*
+发送短信验证码
  */
-export const mobileCode = phone => ajax('/api/sendcode', {phone})
+export const sendCode = (phone) => ajax('/sendcode', {phone})
 
-/**
- * 手机号验证码登录
+/*
+手机号验证码登陆
  */
-export const phoneLogin = (phone, code) => ajax('/api/login_sms', {phone, code}, 'POST')
+export const smsLogin = ({phone, code}) => ajax('/login_sms', {phone, code}, 'POST')
 
-/**
- * 获取用户信息(根据会话)
+/*
+根据会话获取用户信息
  */
-export const reqUser = () => ajax('/api/userinfo')
+export const reqUser = () => ajax('/userinfo')
+
+

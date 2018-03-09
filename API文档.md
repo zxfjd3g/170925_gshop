@@ -217,6 +217,7 @@
 	|参数		|是否必选 |类型     |说明
 	|name       |Y       |string   |用户名
 	|pwd        |Y       |string   |密码
+	|captcha    |Y       |string   |验证码
 
 ### 返回示例：
     * 登陆成功

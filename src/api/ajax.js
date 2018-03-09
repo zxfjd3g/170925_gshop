@@ -1,7 +1,11 @@
 import axios from 'axios'
 
 export default function ajax(url = '', data = {}, type = 'GET') {
+
   return new Promise(function (resolve, reject) {
+    // 执行异步代码(发ajax请求)
+    // 如果成功了, 调用resolve(data)
+    // 如果失败了, 调用reject(error)
 
     let promise
 
@@ -22,10 +26,11 @@ export default function ajax(url = '', data = {}, type = 'GET') {
       promise = axios.post(url, data)
     }
 
-    promise.then(response => {
-      resolve(response.data)
-    })
-      .catch(error => {
+    promise
+      .then(response => { // ajax请求成功
+        resolve(response.data)
+      })
+      .catch(error => { // ajax请求失败
         reject(error)
       })
   })

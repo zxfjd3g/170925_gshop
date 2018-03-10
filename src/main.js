@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+// 引入加载mockServer
+import './mock/MockServer' // 后面就可以访问内部定义好的接口
 
 new Vue({
   el: '#app',

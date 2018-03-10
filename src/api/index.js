@@ -43,4 +43,17 @@ export const smsLogin = ({phone, code}) => ajax('/api/login_sms', {phone, code},
  */
 export const reqUser = () => ajax('/api/userinfo')
 
+/*
+获取商家的食品列表
+ */
+export const reqShopGoods = () => ajax('/goods')
+/*
+获取商家的评价列表
+ */
+export const reqShopRatings = () => ajax('/ratings')
+/*
+获取商家的详情信息
+ */
+export const reqShopInfo = () => ajax('/info')
+
 

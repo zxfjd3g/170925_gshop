@@ -1,11 +1,16 @@
 <template>
   <div>
-    ShopHeader
+    {{info}}
   </div>
 </template>
 
 <script>
-  export default {}
+  import {mapState} from 'vuex'
+  export default {
+    computed: {
+      ...mapState(['info'])
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

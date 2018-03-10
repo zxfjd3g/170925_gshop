@@ -19,6 +19,10 @@
 <script>
   import ShopHeader from '../../components/ShopHeader/ShopHeader.vue'
   export default {
+    mounted () {
+      // 通知action异步获取info
+      this.$store.dispatch('getShopInfo')
+    },
     components: {
       ShopHeader
     }

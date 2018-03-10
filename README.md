@@ -87,3 +87,5 @@
 	模拟(mock)数据/接口
 	开发ShopHeader组件
 	开发Goods组件
+	
+    v-if: 如果结果是false, 内部标签中的表达式不会解析

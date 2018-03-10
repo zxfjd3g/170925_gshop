@@ -20,6 +20,8 @@
       console.log(this.$route)  // 当前路由对象*/
       // 通知action获取地址信息
       this.$store.dispatch('getAddress')
+      // 通知action获取用户信息
+      this.$store.dispatch('getUserInfo')
     }
   }
 </script>

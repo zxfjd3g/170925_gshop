@@ -7,4 +7,5 @@ export default {
   address: {},  // 地址信息
   foodTypes: [], //食物分类列表
   shops: [], // 商家列表
+  userInfo: {}, // 用户信息
 }

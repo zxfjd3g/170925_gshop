@@ -1,8 +1,9 @@
 <template>
   <div class="shop_container">
     <ul class="shop_list" v-if="shops.length">
-      <li class="shop_li border-1px" v-for="(item, index) in shops" :key="index">
-        <a>
+      <router-link class="shop_li border-1px" to="/shop" tag="li"
+                   v-for="(item, index) in shops" :key="index">
+        <div>
           <div class="shop_left">
             <img class="shop_img" :src="imgBaseUrl + item.image_path">
           </div>
@@ -35,8 +36,8 @@
               </p>
             </section>
           </div>
-        </a>
-      </li>
+        </div>
+      </router-link>
     </ul>
     <ul v-else>
       <li v-for="item in 10" :key="item">
@@ -74,7 +75,7 @@
       .shop_li
         bottom-border-1px(#f1f1f1)
         width 100%
-        > a
+        > div
           clearFix()
           display block
           box-sizing border-box

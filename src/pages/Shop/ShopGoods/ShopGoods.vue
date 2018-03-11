@@ -106,6 +106,7 @@
         // 监视滑动结束
         this.foodsScroll.on('scrollEnd',(pos) => {
           console.log('滑动结束', pos.y)
+          this.scrollY = Math.abs(pos.y)  // 解决惯性滑动更新
         })
       },
 
@@ -135,10 +136,8 @@
         this.scrollY = top
         // 平滑滚动到指定位置
         this.foodsScroll.scrollTo(0, -top, 300)
-
       }
     }
-
   }
 </script>
 

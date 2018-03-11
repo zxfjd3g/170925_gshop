@@ -1,6 +1,7 @@
 /*
 直接操作state的对象
  */
+import Vue from 'vue'
 import {
   RECEIVE_ADDRESS,
   RECEIVE_TYPES,
@@ -8,7 +9,9 @@ import {
   RECEIVE_USER_INFO,
   RECEIVE_INFO,
   RECEIVE_GOODS,
-  RECEIVE_RATINGS
+  RECEIVE_RATINGS,
+  INCREMENT_FOOD_COUNT,
+  DECREMENT_FOOD_COUNT
 } from './mutation-types'
 
 export default {
@@ -36,5 +39,20 @@ export default {
 
   [RECEIVE_GOODS](state, {goods}) {
     state.goods = goods
+  },
+
+  [INCREMENT_FOOD_COUNT](state, {food}) {
+    if(!food.count) { // 第一次增加时, 没有count
+      // food.count = 1 // 添加count属性, 并指定为1
+      // 问题: 新添加的属性没有数据劫持==>数据绑定==>更新了数据但界面不变
+      Vue.set(food, 'count', 1) // 给有数据绑定的对象添加指定属性名和值的属性(有绑定)
+    } else { // 有count
+      food.count++
+    }
+  },
+  [DECREMENT_FOOD_COUNT](state, {food}) {
+    if(food.count) { // count有值才减1
+      food.count--
+    }
   },
 }

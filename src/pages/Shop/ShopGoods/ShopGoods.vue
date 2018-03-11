@@ -36,7 +36,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    CartControl组件
+                    <CartControl :food="food"/>
                   </div>
                 </div>
               </li>
@@ -52,6 +52,7 @@
 <script>
   import BScroll from 'better-scroll'
   import { mapState } from 'vuex'
+  import CartControl from '../../../components/CartControl/CartControl.vue'
 
   export default {
 
@@ -137,6 +138,10 @@
         // 平滑滚动到指定位置
         this.foodsScroll.scrollTo(0, -top, 300)
       }
+    },
+
+    components: {
+      CartControl
     }
   }
 </script>
@@ -158,7 +163,7 @@
       .menu-item
         display: table
         height: 54px
-        width: 56px
+        width: 66px
         padding: 0 12px
         line-height: 14px
         &.current
@@ -197,7 +202,7 @@
     .foods-wrapper
       flex: 1
       .title
-        padding-left: 14px
+        margin-left: 14px
         height: 26px
         line-height: 26px
         border-left: 2px solid #d9dde1

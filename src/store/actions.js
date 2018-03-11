@@ -17,7 +17,9 @@ import {
   RECEIVE_USER_INFO,
   RECEIVE_INFO,
   RECEIVE_GOODS,
-  RECEIVE_RATINGS
+  RECEIVE_RATINGS,
+  INCREMENT_FOOD_COUNT,
+  DECREMENT_FOOD_COUNT
 } from './mutation-types'
 /*
 使用async和await的作用:
@@ -96,4 +98,13 @@ export default {
       callback && callback()
     }
   },
+
+  // 更新指定food的count
+  updateFoodCount ({commit}, {food, isAdd}) {
+    if(isAdd) { // 增加
+      commit(INCREMENT_FOOD_COUNT, {food})
+    } else { // 减少
+      commit(DECREMENT_FOOD_COUNT, {food})
+    }
+  }
 }

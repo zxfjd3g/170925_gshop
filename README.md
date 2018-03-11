@@ -118,11 +118,33 @@
     
 ## 5. 开发ShopHeader组件
     1). 异步显示数据效果的编码流程
+        ajax
+          ajax请求函数
+          接口请求函数
+        vuex
+          state
+          mutation-types
+          actions
+          mutations
+        组件
+          dispatch(): 异步获取后台数据到vuex的state
+          mapState(): 从vuex的state中读取对应的数据
+          模板中显示
+    
     2). 初始显示异常
-        情况1: Cannot read property '0' of undefined"
+        情况1: Cannot read property 'xxx' of undefined"
         原因: 初始值是空对象, 内部没有数据, 而模块中直接显示3层表达式
         解决: 使用v-if指令
         
         情况2: Cannot read property 'avatar' of null"
         原因: 初始值是null, 而模块中直接显示2层表达式
         解决: 初始值为{}
+    3). vue transition动画
+    
+# day04
+## 1. 功能
+    Goods组件
+    CartControl组件
+    ShopCart组件
+    Food组件
+    RatingSelect组件

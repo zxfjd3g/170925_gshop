@@ -38,6 +38,12 @@
       &.move-enter, &.move-leave-active
         opacity: 0
         transform: translate3d(24px, 0, 0) rotate(180deg)
+    .icon-remove_circle_outline
+      display: inline-block
+      padding 6px
+      line-height 24px
+      font-size 24px
+      color $green
     .cart-count
       display: inline-block
       vertical-align: top
@@ -47,10 +53,10 @@
       text-align: center
       font-size: 10px
       color: rgb(147, 153, 159)
-    .cart-add
+    .icon-add_circle
       display: inline-block
       padding: 6px
       line-height: 24px
       font-size: 24px
-      color: rgb(0, 160, 220)
+      color $green
 </style>

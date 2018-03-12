@@ -19,7 +19,8 @@
           <li class="food-list food-list-hook" v-for="(good, index) in goods" :key="index">
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="index">
+              <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods"
+                  :key="index" @click="showFood(food)">
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
@@ -48,6 +49,7 @@
       <ShopCart/>
     </div>
 
+    <Food :food="selectedFood" ref="food"></Food>
   </div>
 </template>
 
@@ -56,6 +58,7 @@
   import { mapState } from 'vuex'
   import CartControl from '../../../components/CartControl/CartControl.vue'
   import ShopCart from '../../../components/ShopCart/ShopCart.vue'
+  import Food from '../../../components/Food/Food.vue'
 
   export default {
 
@@ -64,6 +67,7 @@
         supportClasses: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
         scrollY: 0, //右侧Y轴滑动的坐标
         tops: [], // 包含右侧所有分类小列表的top值
+        selectedFood: {}, //选择要显示的food
       }
     },
 
@@ -140,12 +144,21 @@
         this.scrollY = top
         // 平滑滚动到指定位置
         this.foodsScroll.scrollTo(0, -top, 300)
+      },
+
+      // 显示指定food
+      showFood (food) {
+        // 保存food
+        this.selectedFood = food
+        // 显示food
+        this.$refs.food.showOrHide(true)  // 父组件中调用子组件的方法
       }
     },
 
     components: {
       CartControl,
-      ShopCart
+      ShopCart,
+      Food
     }
   }
 </script>

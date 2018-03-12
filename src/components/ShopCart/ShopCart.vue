@@ -21,7 +21,7 @@
         <div class="shopcart-list" v-show="listShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty">清空</span>
+            <span class="empty" @click="clearCart">清空</span>
           </div>
           <div class="list-content" id="listContent">
             <ul >
@@ -117,6 +117,13 @@
       toggleShow () {
         if(this.totalCount) { // 只有有数量时切换
           this.isShow = !this.isShow
+        }
+      },
+
+      // 清空购物车
+      clearCart () {
+        if(window.confirm('确定清空购物车吗?')) {
+          this.$store.dispatch('clearCart')
         }
       }
     },

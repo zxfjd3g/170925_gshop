@@ -182,10 +182,10 @@
     使用vuex管理购物车状态: shopCart
 
 ## 4. ShopCart组件
-    显示隐藏的控制
-    滑动
-    vue过渡动画
+    显示隐藏的控制: isShow/totalCount
+    vue过渡动画: 滑动/渐变
+    列表滑动: better-scroll
     vuex
-    
+
     
     

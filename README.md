@@ -143,8 +143,49 @@
     
 # day04
 ## 1. 功能
-    Goods组件
+    ShopGoods组件
     CartControl组件
     ShopCart组件
-    Food组件
-    RatingSelect组件
+
+## 2. 相关问题
+    1. 创建好BScroll对象, 样式都生成了, 就是不能滑动
+      原因: 创建BScroll对象时, 列表没有显示(状态已经更新, 但列表更新是异步的)
+      解决: 在列表更新之后才创建BScroll对象: this.$nextTick(() => {创建BScroll对象})
+    2. 更新状态数据, 对应的界面不变化
+      原因: 一般方法给一个已有绑定的对象中添加一个新的属性, 这个属性没有数据绑定
+      解决: this.$set(obj, 'xxx', value)才有数据绑定
+          Vue.set(obj, 'xxx', value)才有数据绑定
+    3. 点击添加购物项, 会1次添加多个
+      原因: 创建了多个BScroll对象来管理同一个DOM元素
+      解决: 只创建一个BScroll对象 
+      扩展: 单例对象: 
+        创建前, 先判断是否已经存在, 只有不存在才创建
+        创建后, 保存创建的对象
+             
+## 2. ShopGoods组件
+    1). 动态展现列表数据
+    2). 基本滑动:
+        使用better-scroll
+        理解其基本原理
+        创建BScroll对象的时机
+    3). 滑动右侧列表, 左侧同步更新
+        better-scroll禁用了原生的dom事件, 使用的是自定义事件
+        绑定监听: scroll/scrollEnd
+        滚动监听的类型: probeType
+        列表滑动的3种类型
+            手指触摸
+            惯性
+            编码
+    4). 点击左侧列表项, 右侧滑动到对应位置
+
+## 3. CartControl组件
+    使用vuex管理购物车状态: shopCart
+
+## 4. ShopCart组件
+    显示隐藏的控制
+    滑动
+    vue过渡动画
+    vuex
+    
+    
+    

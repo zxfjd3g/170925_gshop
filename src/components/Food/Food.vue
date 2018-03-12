@@ -72,10 +72,13 @@
   import BScroll from 'better-scroll'
   import CartControl from '../CartControl/CartControl.vue'
   import RatingSelect from '../RatingSelect/RatingSelect.vue'
+  import {ratingsMixin} from '../../common/mixins'
 
   const ALL = 2 // 全部
 
   export default {
+    mixins: [ratingsMixin], // 配置混合
+
     props: {
       food: Object
     },
@@ -83,8 +86,6 @@
     data () {
       return {
         isShow: false,
-        onlyContent: false,
-        selectType: ALL   // 0: positive 1 negative 2 all
       }
     },
 
@@ -105,58 +106,8 @@
         }
       },
 
-      // 切换onlyContent
-      toggleOnlyContent () {
-        this.onlyContent = !this.onlyContent
-        // 刷新列表
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
-      },
-
-      // 更新selectType
-      setSelectType (selectType) {
-        this.selectType = selectType
-        // 刷新列表
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
-      },
-
       addToCart () {
         this.$store.dispatch('updateFoodCount', {food: this.food, isAdd: true})
-      }
-    },
-
-    computed: {
-      filterRatings () {
-        // 如果还没有数据, 直接返回空数组
-        if(!this.food.ratings) {
-          return []
-        }
-        // 取出相关的数据
-        const ratings = this.food.ratings
-        const selectType = this.selectType // 0, 1, 2
-        const onlyContent = this.onlyContent  // true/false
-        // 通过数组的filter方法进行过滤
-        return ratings.filter(rating => {
-          var {rateType, text} = rating // 解构赋值
-          // rateType 0/1
-          // text 有值/没值
-
-          // 条件1: selectType与rateType
-          // selectType===2
-          // selectType===rateType
-          // selectType===2 || selectType===rateType
-
-
-          // 条件2: onlyContent与text
-          // !onlyContent
-          // text.length>0
-          // !onlyContent || text.length>0
-
-          return (selectType===2 || selectType===rateType) && (!onlyContent || text.length>0)
-        })
       }
     },
 

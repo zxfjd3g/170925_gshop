@@ -17,11 +17,26 @@
           </div>
         </div>
       </div>
+
+      <div class="ball-container">
+        <transition @before-enter="beforeDrop"
+                    @enter="dropping"
+                    @after-enter="afterDrop"
+                    :css="false"
+                    v-for="(ball,index) in balls"
+                    :key="index">
+          <div class="ball"  v-show="ball.isShow">
+            <div class="inner inner-hook"></div>
+          </div>
+        </transition>
+      </div>
+
       <transition name="move">
         <div class="shopcart-list" v-show="listShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty" @click="clearCart">清空</span>
+            <!--<span class="empty" @click="clearCart">清空</span>-->
+            <mt-button class="empty" @click.native="clearCart">清空</mt-button>
           </div>
           <div class="list-content" id="listContent">
             <ul >
@@ -45,6 +60,8 @@
 </template>
 
 <script>
+  import PubSub from 'pubsub-js'
+  import { MessageBox, Toast } from 'mint-ui';
   import BScroll from 'better-scroll'
   import { mapState, mapGetters } from 'vuex'
   import CartControl from '../CartControl/CartControl.vue'
@@ -53,7 +70,15 @@
 
     data () {
       return {
-        isShow: false
+        isShow: false,
+        balls: [
+          {isShow: false},
+          {isShow: false},
+          {isShow: false},
+          {isShow: false},
+          {isShow: false}
+        ],
+        droppingBalls: [] // 保存多个待执行动画的ball
       }
     },
 
@@ -113,6 +138,14 @@
       }
     },
 
+    mounted () {
+      // 订阅显示小球的消息
+      PubSub.subscribe('showBall', (message, startEl) => {
+        // 显示小球
+        this.showBall(startEl)
+      })
+    },
+
     methods: {
       toggleShow () {
         if(this.totalCount) { // 只有有数量时切换
@@ -122,9 +155,90 @@
 
       // 清空购物车
       clearCart () {
-        if(window.confirm('确定清空购物车吗?')) {
+        /*if(window.confirm('确定清空购物车吗?')) {
           this.$store.dispatch('clearCart')
+        }*/
+
+        MessageBox.confirm('确定清空购物车吗?').then(
+          (action) => {
+            console.log('确定', action)
+            this.$store.dispatch('clearCart')
+            Toast({
+              message: '清空购物车成功',
+              position: 'bottom',
+              duration: 1000
+            });
+          },
+          (action) => {
+            console.log('取消', action)
+          }
+        )
+      },
+
+      //启动一个小球动画
+      showBall(startEl) {
+        // 找到一个隐藏的小球元素, 让它显示出来, 并动画
+        // 从balls中找出isshow为falSE的ball
+        const ball = this.balls.find(ball =>!ball.isShow)
+        // 只有找到, 才做动画
+        if(ball) {
+          ball.isShow = true
+          ball.startEl = startEl // 保存对应的起始位置的元素
+          this.droppingBalls.push(ball) // 把启动动画的ball保存起来
         }
+      },
+
+      // 动画开始之前: 将小球瞬间移动到动画的起始位置(点击位置)
+      beforeDrop(el) {
+        console.log('beforeDrop()')
+        var offsetX = 0
+        var offsetY = 0
+
+        // 取出第一个待启动动画的ball
+        const ball = this.droppingBalls.shift()
+        // 找到点击的startEl
+        var startEl = ball.startEl
+        // 得到起始位置的坐标
+        const {left, top} = startEl.getBoundingClientRect()
+        // 得劲原始位置的坐标
+        const elLeft = 32
+        const elBottom = 22
+        // 算出偏移量
+        offsetX = left-elLeft
+        offsetY = -(window.innerHeight-top-elBottom)
+
+        // 瞬间移动动画起始的位置
+        el.style.transform = `translate3d(0, ${offsetY}px, 0)`
+        const innerEl = el.children[0]
+        innerEl.style.transform = `translate3d(${offsetX}px, 0, 0)`
+
+        // 保存ball
+        el.ball = ball
+      },
+
+      // 动画开始时: 指定动画结束的位置
+      dropping(el) {
+        console.log('dropping()')
+        //强制页面重排/重绘(否则动画瞬间完成, 没有效果)
+        const rf = el.offsetHeight
+
+        this.$nextTick(() => {
+          el.style.transform = `translate3d(0, 0, 0)`
+          const innerEl = el.children[0]
+          innerEl.style.transform = `translate3d(0, 0, 0)`
+        })
+      },
+
+      // 动画完成之后: 做一些收尾的工作
+      // 问题: 在动画生命周期回调函数中更新状态, 页面不变化   2.0没有
+      afterDrop(el) {
+        console.log('afterDrop()')
+        // 找到对应的ball
+        const ball = el.ball
+        // 延迟到动画结束时才去隐藏ball
+        setTimeout(() => {
+          ball.isShow = false  // 立即起效
+        }, 400)
       }
     },
 

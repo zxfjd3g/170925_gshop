@@ -1,14 +1,16 @@
 <template>
   <div class="cartcontrol">
     <transition name="move">
-      <div class="iconfont icon-remove_circle_outline" v-show="food.count" @click="updateFoodCount(false)"></div>
+      <div class="iconfont icon-remove_circle_outline" v-show="food.count"
+           @click.stop="updateFoodCount(false)"></div>
     </transition>
     <div class="cart-count" v-show="food.count">{{food.count}}</div>
-    <div class="iconfont icon-add_circle" @click="updateFoodCount(true)"></div>
+    <div class="iconfont icon-add_circle" @click.stop="updateFoodCount(true, $event)"></div>
   </div>
 </template>
 
 <script>
+  import PubSub from 'pubsub-js'
   export default {
     props: {
       food: Object
@@ -16,10 +18,15 @@
 
     methods: {
       // 更新food的count
-      updateFoodCount (isAdd) {
+      updateFoodCount (isAdd, event) {
         const {food} = this
         // 通知action更新
         this.$store.dispatch('updateFoodCount', {food, isAdd})
+        if(isAdd) {
+          // 显示一个小球(带动画)
+          // 发送一个显示小球的消息
+          PubSub.publish('showBall', event.target)
+        }
       }
     }
   }

@@ -13,10 +13,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "better-scroll": "^1.8.4",
+    "mint-ui": "^2.2.13",
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.21.0",
+    "pubsub-js": "^1.6.0",
     "swiper": "^4.1.6",
     "vue": "^2.5.2",
+    "vue-lazyload": "^1.2.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
@@ -26,6 +29,7 @@
     "babel-eslint": "^8.2.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^7.1.1",
+    "babel-plugin-component": "^1.1.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-plugin-transform-vue-jsx": "^3.5.0",
